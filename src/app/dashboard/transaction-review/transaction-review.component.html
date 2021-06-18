@@ -1,0 +1,33 @@
+<div fxLayout="row" fxLayoutAlign="space-between center" mat-dialog-title>
+  <span>Review Transfer</span>
+  <button (click)="dismiss()" mat-icon-button>
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<mat-dialog-content class="dialog-content">
+  <div fxLayout="column" fxLayoutGap="1rem">
+    <div><i>Are you ready to send out this transfer?</i></div>
+    <div fxLayout="column" fxLayoutGap="0.5rem">
+      <span><strong>It will be send to account:</strong></span>
+      <span>{{ data?.toAccount?.name }}</span>
+    </div>
+    <div fxLayout="column" fxLayoutGap="0.5rem">
+      <span><strong>With an amount of:</strong></span>
+      <span
+        [innerHTML]="data?.fromAccount?.currencyCode + ' ' + data?.amount"
+      ></span>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions class="dialog-actions" fxLayoutAlign="end center">
+  <button (click)="dismiss()" id="close" mat-raised-button>Close</button>
+  <button
+    (click)="confirm()"
+    class="btn btn-primary"
+    id="send"
+    mat-raised-button
+  >
+    Send Transfer
+  </button>
+</mat-dialog-actions>

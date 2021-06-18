@@ -1,0 +1,77 @@
+/* You can add global styles to this file, and also import other style files */
+@import '../src/app/shared/styles/main';
+
+
+html,
+body,
+app-root,
+app-dashboard {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  font-family: 'Kanit', sans-serif;
+  font-weight: 200;
+  color: #454545;
+}
+
+footer {
+  width: 100%;
+  height: 40px;
+  background: white;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+::-webkit-input-placeholder {
+  font-style: italic;
+}
+
+:-moz-placeholder {
+  font-style: italic;
+}
+
+::-moz-placeholder {
+  font-style: italic;
+}
+
+:-ms-input-placeholder {
+  font-style: italic;
+}
+
+input {
+  padding: 0.5rem 1rem;
+  border: 1px solid #b9b9b9;
+  border-radius: 4px;
+
+  &.error {
+    border: 1px solid red;
+  }
+
+  &:disabled {
+    background: #E8ECEE;
+  }
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  margin: 1rem;
+  border: none;
+  color: white;
+  border-radius: 4px;
+
+  &.btn-primary {
+    background: #f36500;
+  }
+}
+
+.merchant-details {
+  width: 100%;
+  flex-direction: column;
+}

@@ -1,0 +1,48 @@
+<mat-card class="transfer-form-card">
+  <mat-card-header class="transfer-form--header" fxLayoutAlign="start center">
+    <mat-icon mat-card-avatar>account_balance_wallet</mat-icon>
+    <mat-card-title>Make Transfer</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="transfer-form--content">
+    <form (ngSubmit)="onSubmit()" [formGroup]=transferForm fxLayout="column" fxLayoutGap="1rem">
+      <div fxLayout="column" fxLayoutGap="0.5rem">
+        <label for="from-account">From Account</label>
+        <input formControlName="fromAccount" id="from-account" type="text">
+      </div>
+      <div fxLayout="column" fxLayoutGap="0.5rem">
+        <div fxFlex="100"><label for="merchant-search">To Account</label></div>
+        <div class="auto-complete-input--wrapper" fxLayout="column">
+          <input (ngModelChange)="getFilteredMerchants($event)"
+                 [ngClass]="isInValidField('merchantSearch') ? 'error' : ''" autocomplete="off"
+                 formControlName="merchantSearch" id="merchant-search"
+                 placeholder="type an account name" type="text">
+          <small *ngIf="isInValidField('merchantSearch')"
+                 class="error-text">{{getErrorMessage('merchantSearch')}}</small>
+          <div *ngIf="showMerchantOptions" class="auto-complete-input--options">
+            <mat-option (onSelectionChange)="setMerchant(merchant)" *ngFor="let merchant of filteredMerchants"
+                        [value]="merchant">
+              {{ merchant.name }}
+            </mat-option>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="column" fxLayoutGap="0.5rem">
+        <div fxFlex="100"><label for="amount">Amount</label></div>
+        <div fxLayout="column">
+          <div class="input-icon" fxFlex="100%" fxLayoutGap="0.5rem">
+            <i [innerHTML]="userAccount?.currencyCode" fxLayoutAlign="center center"></i>
+            <input [ngClass]="isInValidField('amount') ? 'error' : ''" autocomplete="off"
+                   formControlName="amount" fxFlex="100%" id="amount" min="0" placeholder="specify the amount"
+                   type="number">
+          </div>
+          <small *ngIf="isInValidField('amount')" class="error-text">{{getErrorMessage('amount')}}</small>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <app-submit-button (submitForm)="onSubmit()" fxLayoutAlign="end end">Submit</app-submit-button>
+  </mat-card-actions>
+</mat-card>
+
+

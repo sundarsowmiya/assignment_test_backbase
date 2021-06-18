@@ -1,0 +1,46 @@
+<mat-card class="transfer-form-card">
+  <mat-card-header class="transfer-form--header" fxLayoutAlign="start center">
+    <mat-icon mat-card-avatar>list</mat-icon>
+    <mat-card-title>Transactions <strong>List</strong></mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="transfer-form--content" fxLayout="column" fxLayoutGap="1rem">
+    <div>
+      <form #filterForm>
+        <div class="input-icon" fxFlex="100%" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="0.5rem">
+          <i fxLayoutAlign="center center">
+            <mat-icon>search</mat-icon>
+          </i>
+          <input [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" autocomplete="off"
+                 fxFlex="50%" placeholder="filter transactions" type="text">
+          <span (click)="filterForm.reset();searchText=''" *ngIf="searchText" class="clear-filter">&#10005;</span>
+        </div>
+      </form>
+    </div>
+    <div class="transactions-list" fxLayout="column" fxLayoutGap="1rem">
+      <app-transaction-item
+        *ngFor="let transaction of transactionsList | filterList:searchText:filterCategory | sortByDate : 'desc'"
+        fxLayout="row"
+        fxLayoutAlign="start center"
+        fxLayoutGap="1rem">
+        <div [style.background]="transaction?.categoryCode" class="transaction-colour--div"
+             data-test-hook='transactionColour'></div>
+        <div class="transaction-date--div" data-test-hook='transactionDate'
+             fxFlex="10%"><strong>{{transaction?.dates?.valueDate | date: 'MMM. yy'}}</strong></div>
+        <div class="transaction-merchant-name--div" data-test-hook='transactionMerchantName'
+             fxFlex><strong>{{transaction?.merchant?.name}}</strong></div>
+        <div class="transaction-type--div" data-test-hook='transactionType'
+             fxFlex>{{transaction?.transaction?.type}}</div>
+        <div class="transaction-amount--div" data-test-hook='transactionAmount'
+             fxFlex="10%">
+          <div class="transaction-amount">
+            <span
+              [innerHTML]="transaction?.transaction?.amountCurrency?.currencyCode === 'EUR' ? '&#8364;' : '&#8364;'"></span>
+            {{transaction?.transaction?.amountCurrency?.amount}}
+          </div>
+        </div>
+      </app-transaction-item>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+
